@@ -1,0 +1,39 @@
+class Solution {
+public:
+    void setZeroes(vector<vector<int>>& matrix) {       
+        
+        int rows = matrix.size();
+        int cols =matrix[0].size();
+        
+        bool first_row_zero = false;
+        bool first_col_zero = false;
+        
+        for(int i=0;i<rows;i++){
+            for(int j=0;j<cols;j++){
+                
+                if(matrix[i][j]==0){
+                    matrix[0][j] = 0;
+                    matrix[i][0] = 0;
+                    
+                    if(i==0)first_row_zero = true;
+                    if(j==0)first_col_zero = true;
+                }
+            }
+        }
+        
+        for(int i=1;i<rows;i++){
+            for(int j=1;j<cols;j++){                
+                if(matrix[i][0]==0 || matrix[0][j]==0)matrix[i][j] = 0;
+            }
+         
+        }
+        
+        
+
+        if(first_row_zero)
+         for(int col=0;col<cols;col++)matrix[0][col] = 0;
+        
+        if(first_col_zero)
+            for(int row=0;row<rows;row++)matrix[row][0] = 0;        
+    }
+};
