@@ -1,0 +1,28 @@
+class Solution {
+    
+    int solve(int ind,vector<int>& p,bool can_buy,vector<vector<int>> &dp){
+        
+        if(ind==p.size()){
+            //suppose you buy but didnot sell  it so in that case we return -1e5 so it will not consider
+            return can_buy?0:-1e5;
+        }
+        
+        if(dp[ind][can_buy] != -1)return dp[ind][can_buy];
+        
+        if(can_buy){
+            
+            return dp[ind][can_buy] =  max( -p[ind] + solve(ind+1,p,false,dp) , solve(ind+1,p,true,dp)  );
+        }
+        else{
+            return dp[ind][can_buy] =  max( p[ind] , solve(ind+1,p,false,dp) );
+        }
+        
+    }
+public:
+    int maxProfit(vector<int>& p) {
+        
+        vector<vector<int>> dp(p.size() ,vector<int>(2,-1));
+        return solve(0,p,true,dp);
+        
+    }
+};
